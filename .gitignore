@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+
+# Virtual environments
+.venv/
+.venv311/
+venv/
+
+# Build and release outputs
+dist/
+build/
+*.egg-info/
+
+# Local datasets and archives
+data/
+tts_export/
+*.zip
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.tmp
+
+# Notebook checkpoints
+.ipynb_checkpoints/

@@ -1,0 +1,5 @@
+Dataset: C:\Users\ali ouala eddine\Desktop\DEV\AI\tts_export
+Metadata rows: 940
+WAV files on disk: 940
+Referenced WAV files: 940
+Validation result: PASS

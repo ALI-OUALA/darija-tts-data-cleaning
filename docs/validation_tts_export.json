@@ -1,0 +1,18 @@
+{
+  "dataset_dir": "C:\\Users\\ali ouala eddine\\Desktop\\DEV\\AI\\tts_export",
+  "metadata_path": "C:\\Users\\ali ouala eddine\\Desktop\\DEV\\AI\\tts_export\\metadata.csv",
+  "wav_dir": "C:\\Users\\ali ouala eddine\\Desktop\\DEV\\AI\\tts_export\\wavs",
+  "metadata_row_count": 940,
+  "metadata_column_counts": [
+    3
+  ],
+  "wav_count": 940,
+  "referenced_wav_count": 940,
+  "duplicate_filenames": [],
+  "missing_references": [],
+  "format_issues": [],
+  "unreferenced_wavs": [],
+  "errors": [],
+  "warnings": [],
+  "is_valid": true
+}
