@@ -1,75 +1,67 @@
-# Darija TTS release package
+# Algerian Darija TTS Data Cleaning
 
-This repository packages a WhisperX-aligned Darija TTS export into a clean,
-training-ready dataset and a reproducible open-source release workflow.
+A reproducible WhisperX-based pipeline for turning Algerian Darija recordings and transcripts into a clean, training-ready TTS dataset.
 
-## What this project does
+## Release snapshot
 
-- Preserves transcript text while refining timestamps with forced alignment
-- Builds normalized dataset outputs from `tts_export/`
-- Validates audio format and metadata consistency
-- Generates QC metrics and plots for reporting
+| Metric | Result |
+| --- | ---: |
+| Validated segments | 940 |
+| Mean segment duration | 6.597 s |
+| Audio format | 16 kHz mono |
+| Clipping rate | 0.00% |
+| Mean alignment coverage | 99.30% |
+| Segments with coverage ≥ 0.95 | 96.60% |
 
-## Pipeline overview
+## What the pipeline does
 
-Input audio + transcripts -> WhisperX rough timing + forced alignment ->
-sentence/pause segmentation -> trim/filter by duration and QC -> export
-`wavs/*.wav` + `metadata.csv` + validation reports
+- preserves transcript text while refining timestamps with forced alignment
+- applies sentence and pause-aware segmentation
+- trims and filters clips using duration and quality checks
+- validates audio format and metadata consistency
+- exports `wavs/*.wav`, `metadata.csv`, and machine-readable validation reports
+- generates QC plots for release review
 
-## Repository structure
+## Pipeline
 
 ```text
-.
-├── README.md
-├── LICENSE
-├── CHANGELOG.md
-├── requirements.txt
-├── .gitignore
-├── darija_tts_whisperx_colab.py
-├── darija_tts_whisperx_colab.ipynb
-├── scripts/
-│   ├── pack_release.py
-│   ├── make_report.py
-│   ├── preflight_check.py
-│   └── validate_dataset.py
-├── docs/
-│   ├── report.md
-│   ├── TROUBLESHOOTING.md
-│   └── figures/
-├── examples/
-│   └── sample_usage.md
-└── colab/
-    └── colab_steps.md
+Audio + transcripts
+        ↓
+WhisperX rough timing + forced alignment
+        ↓
+Sentence / pause segmentation
+        ↓
+Duration and quality filtering
+        ↓
+Training-ready WAV files + metadata + reports
 ```
 
 ## Quick start
 
-1. Install dependencies.
+Install dependencies:
 
 ```bash
 python -m pip install -r requirements.txt
 ```
 
-2. Run the release packaging script from a local export folder.
+Package a local TTS export:
 
 ```bash
-python scripts/pack_release.py --project_root . --tts_export_dir ./tts_export --out_dir ./dist
+python scripts/pack_release.py \
+  --project_root . \
+  --tts_export_dir ./tts_export \
+  --out_dir ./dist
 ```
 
-3. Validate the packaged dataset.
+Validate the packaged dataset:
 
 ```bash
-python scripts/validate_dataset.py --dataset_dir ./dist/tts_dataset_ready --json_out ./dist/validate_summary.json
+python scripts/validate_dataset.py \
+  --dataset_dir ./dist/tts_dataset_ready \
+  --json_out ./dist/validate_summary.json
 ```
 
-## Colab workflow
-
-Use `colab/colab_steps.md` for end-to-end Colab commands. Reference files are:
-
-- `darija_tts_whisperx_colab.ipynb`
-- `darija_tts_whisperx_colab.py`
-
-## Results summary
+## Quality-control results
 
 <!-- RESULTS_SUMMARY_START -->
 | Metric | Value |
@@ -96,13 +88,39 @@ Use `colab/colab_steps.md` for end-to-end Colab commands. Reference files are:
 ![Dropped segments by reason](docs/figures/dropped_by_reason.png)
 <!-- RESULTS_SUMMARY_END -->
 
-## Open-source notes
+## Repository structure
 
-This repository intentionally ignores heavy/generated artifacts such as
-`data/`, `tts_export/`, `dist/`, and archive files (`*.zip`) to keep source
-control fast and reviewable.
+```text
+.
+├── darija_tts_whisperx_colab.py
+├── darija_tts_whisperx_colab.ipynb
+├── scripts/
+│   ├── pack_release.py
+│   ├── make_report.py
+│   ├── preflight_check.py
+│   └── validate_dataset.py
+├── docs/
+│   ├── report.md
+│   ├── TROUBLESHOOTING.md
+│   └── figures/
+├── examples/
+│   └── sample_usage.md
+└── colab/
+    └── colab_steps.md
+```
+
+## Colab workflow
+
+Use [`colab/colab_steps.md`](colab/colab_steps.md) for the end-to-end Colab workflow. The main reference files are:
+
+- `darija_tts_whisperx_colab.ipynb`
+- `darija_tts_whisperx_colab.py`
+
+## Release policy
+
+Heavy and generated artifacts such as `data/`, `tts_export/`, `dist/`, and archive files are intentionally excluded from version control. The repository focuses on the reproducible pipeline, validation tooling, reports, and release documentation.
 
 ## Credits
 
-- WhisperX for alignment and timestamp refinement
-- Chatterbox ecosystem for TTS fine-tuning workflow inspiration
+- [WhisperX](https://github.com/m-bain/whisperX) for alignment and timestamp refinement
+- the Chatterbox ecosystem for TTS fine-tuning workflow inspiration
